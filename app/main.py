@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status
+from app.db import db
 
 app = FastAPI()
 
@@ -11,3 +12,10 @@ app = FastAPI()
 )
 def health_check():
     return {"message": "Server is up and running..."}
+
+
+try:
+    db.get_db().command("ping")
+    print("Connected to database successfully.")
+except Exception as e:
+    print(f"Error connecting to database: {e}")
